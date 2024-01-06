@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vehicle</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body 
+        {
+            background: linear-gradient(to bottom, #004d90,#7CFC00);
+        }
+        img 
+        {
+            width: 400px;
+            height: 300px;
+        }
+        h1 {
+            color: #2ccf4d;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .block {
+            padding: 20px;
+             /* Gradient from black to white */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .card {
+            width: 18rem;
+            margin: 10px;
+            display: inline-block;
+            background-color: rgba(255, 255, 255, 0.8); /* White background with transparency */
+            border-radius: 15px;
+        }
+
+        .card:hover {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Shadow on hover */
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                display: block;
+                width: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <div class="block">
+    <a href="/cars"> 
+        <div class="card">
+            <img src="{{url_for('static', filename='car.jpg')}}" class="card-img-top" alt="Car Image">
+            <div class="card-body">
+                <a href="/cars" class="btn btn-success">Cars</a>
+            </div>
+        </div>
+    </a>
+    <a href="/bike">
+        <div class="card">
+            <img src="{{url_for('static', filename='bike.jpg')}}" class="card-img-top" alt="Bike Image">
+            <div class="card-body">
+                <a href="/bike" class="btn btn-success">Bike</a>
+            </div>
+        </div>
+    </a>
+</div>
+</body>
+</html>

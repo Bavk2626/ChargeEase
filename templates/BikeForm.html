@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Information Form</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+         body {
+            padding: 20px;
+            background: linear-gradient(to bottom, #004d90, #7CFC00);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            margin: 0;
+        }
+
+        h2 {
+            color: #2ccf4d;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            max-width: 100%;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        label {
+            color: #495057;
+            display: block;
+            margin-bottom: 5px;
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        input {
+            flex: 2;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #b3c7e2;
+            border-radius: 6px;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        input[type="submit"] {
+            flex: 2;
+            background-color: #3e7cb1;
+            color: #fff;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #305a87;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3e7cb1;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Bike Information Form</h2>
+
+    <form action="/bike" method="post">
+        <label for="bikeModel">Bike Model:</label>
+        <input type="text" id="bikeModel" name="bikeModel" class="form-control" required>
+
+        <label for="bikeType">Bike Type:</label>
+        <input type="text" id="bikeType" name="bikeType" class="form-control" required>
+
+        <label for="power">Power:</label>
+        <input type="text" id="power" name="power" class="form-control" required>
+
+        <label for="range">Range:</label>
+        <input type="number" id="range" name="range" class="form-control" required>
+
+        <label for="modes">Modes:</label>
+        <input type="text" id="modes" name="modes" class="form-control" required>
+
+        <input type="submit" value="Submit" class="btn btn-primary">
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Bike Model</th>
+                <th>Bike Type</th>
+                <th>Modes</th>
+                <th>Power</th>
+                <th>Range</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+                <tr>
+                    <td>{{ data[i].bikeModel }}</td>
+                    <td>{{ data[i].bikeType }}</td>
+                    <td>{{ data[i].modes }}</td>
+                    <td>{{ data[i].power }}</td>
+                    <td>{{ data[i].range }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</body>
+</html>
