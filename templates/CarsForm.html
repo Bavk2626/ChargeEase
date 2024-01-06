@@ -103,9 +103,13 @@
         <label for="range">Range:</label>
         <input type="number" id="range" name="range" class="form-control" required>
 
-        <label for="modes">Modes:</label>
-        <input type="text" id="modes" name="modes" class="form-control" required>
+        <label for="batteryCap">Battery Capcity</label>
+        <input type="text" id="batteryCap" name="batteryCap" class="form-control" required>
 
+        <label for="chargingTime">Charging Time</label>
+        <input type="text" id="chargingTime" name="chargingTime" class="form-control" required>
+
+    
         <input type="submit" value="Submit" class="btn btn-primary">
     </form>
 
@@ -114,9 +118,10 @@
             <tr>
                 <th>Car Model</th>
                 <th>Car Type</th>
-                <th>Modes</th>
                 <th>Power</th>
                 <th>Range</th>
+                <th>Battery Capcity</th>
+                <th>Charging Time</th>
             </tr>
         </thead>
         <tbody>
@@ -124,9 +129,10 @@
                 <tr>
                     <td>{{ data[i].carModel }}</td>
                     <td>{{ data[i].carType }}</td>
-                    <td>{{ data[i].modes }}</td>
                     <td>{{ data[i].power }}</td>
                     <td>{{ data[i].range }}</td>
+                    <td>{{ data[i].batteryCap }}</td>
+                    <td>{{ data[i].chargingTime }}</td>
                 </tr>
             {% endfor %}
         </tbody>

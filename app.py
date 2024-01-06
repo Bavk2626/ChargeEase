@@ -25,7 +25,8 @@ app = Flask(__name__)
 
 @app.route('/',methods=['GET'])
 def choose():
-  #db.child("ChargeEase").child("Bike").push({"bikeModel":"","bikeType":"","power":"","range":"","modes":""})
+  #db.child("ChargeEase").child("Bike").push({"bikeModel":"","bikeType":"","power":"","range":"","batteryCap":"","chargingTime":""})
+  #db.child("ChargeEase").child("Car").push({"carModel":"","carType":"","power":"","range":"","batteryCap":"","chargingTime":""})
   return render_template('index.htm')
 @app.route('/cars',methods=['GET','POST'])
 def cars():
@@ -34,9 +35,10 @@ def cars():
     carType = request.form['carType']
     power = request.form['power']
     range1 = request.form['range']
-    modes = request.form['modes']
-    db.child("ChargeEase").child("Cars").push({"carModel":carModel,"carType":carType,"power":power,"range":range1,"modes":modes})
-  data = db.child("ChargeEase").child("Cars").get()
+    batteryCap = request.form['batteryCap']
+    chargingTime = request.form['chargingTime']
+    db.child("ChargeEase").child("Car").push({"carModel":carModel,"carType":carType,"power":power,"range":range1,"batteryCap":batteryCap,"chargingTime":chargingTime})
+  data = db.child("ChargeEase").child("Car").get()
   l = data.val()
   return render_template('CarsForm.html',data=l)
 
@@ -47,8 +49,9 @@ def bike():
     carType = request.form['bikeType']
     power = request.form['power']
     range1 = request.form['range']
-    modes = request.form['modes']
-    db.child("ChargeEase").child("Bike").push({"bikeModel":carModel,"bikeType":carType,"power":power,"range":range1,"modes":modes})
+    batteryCap = request.form['batteryCap']
+    chargingTime = request.form['chargingTime']
+    db.child("ChargeEase").child("Bike").push({"bikeModel":carModel,"bikeType":carType,"power":power,"range":range1,"batteryCap":batteryCap,"chargingTime":chargingTime})
   data = db.child("ChargeEase").child("Bike").get()
   l = data.val()
   return render_template('BikeForm.html',data=l)
