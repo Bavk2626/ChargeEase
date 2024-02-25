@@ -2,76 +2,69 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vehicle</title>
+    <title>Vehicle Information</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <style>
-        body 
-        {
-            background: linear-gradient(to bottom, #004d90,#7CFC00);
-        }
-        img 
-        {
-            width: 400px;
-            height: 300px;
-        }
-        h1 {
-            color: #2ccf4d;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .block {
+        body {
             padding: 20px;
-             /* Gradient from black to white */
+            background: #f5f5f5; /* Light gray background */
             height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: start;
             margin: 0;
         }
 
-        .card {
-            width: 18rem;
-            margin: 10px;
-            display: inline-block;
-            background-color: rgba(255, 255, 255, 0.8); /* White background with transparency */
-            border-radius: 15px;
+        h2 {
+            color: #007bff; /* Dark blue color */
+            text-align: center;
+            margin-bottom: 20px;
         }
 
-        .card:hover {
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4); /* Shadow on hover */
+        nav {
+            margin-bottom: 20px;
         }
 
-        @media (max-width: 768px) {
-            .card {
-                display: block;
-                width: auto;
-            }
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
         }
+
+        form {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        /* Add other styles as needed */
+
     </style>
 </head>
 <body>
-    <h1>Admin Dashboard</h1>
-    <div class="block">
-    <a href="/cars"> 
-        <div class="card">
-            <img src="{{url_for('static', filename='car.jpg')}}" class="card-img-top" alt="Car Image">
-            <div class="card-body">
-                <a href="/cars" class="btn btn-success">Cars</a>
-            </div>
-        </div>
-    </a>
-    <a href="/bike">
-        <div class="card">
-            <img src="{{url_for('static', filename='bike.jpg')}}" class="card-img-top" alt="Bike Image">
-            <div class="card-body">
-                <a href="/bike" class="btn btn-success">Bike</a>
-            </div>
-        </div>
-    </a>
-</div>
+
+    <h2>Vehicle Information Portal</h2>
+
+    <nav>
+        <a href="/cars">Car Information</a>
+        <a href="/bike">Bike Information</a>
+        <a href="/EVdata">EV Station Information</a>
+    </nav>
+
+    <p>Welcome to our Vehicle Information Portal. Please choose a category above to view or submit information.</p>
+
 </body>
 </html>

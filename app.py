@@ -21,7 +21,7 @@ db = firebase.database()
 app = Flask(__name__) 
 #name = "akhil"
 #print(name)
-#db.child("ChargeEase").child("EVUser").push({"id":"EV01","name":name,"age":21,"email":"bandianand900@gmail.com","password":"Bavk@gmail.com","Vechile":"C-name-type","Battery":0,"Range":0,"mobile":"6302174710"})
+#db.child("ChargeEase").child("EVUser").push({"name":name,"age":21,"email":"bandianand900@gmail.com","status":0,"Vechile":"C-name-type","mobile":"6302174710","address":"plot 126"})
 
 @app.route('/',methods=['GET'])
 def choose():
@@ -56,5 +56,32 @@ def bike():
   l = data.val()
   return render_template('BikeForm.html',data=l)
 
+@app.route('/EVdata',methods=['GET','POST'])
+def Evdata():
+  #db.child("ChargeEase").child("Bik").push({"bikeModel":carModel,"bikeType":carType,"power":power,"range":range1,"batteryCap":batteryCap,"chargingTime":chargingTime})
+  data = db.child("ChargeEase").child("EVStation").get()
+  l = data.val()
+  return render_template('EVdata.html',data=l)
+
+
+@app.route("/update//<string:user_id>")
+def approval(user_id):
+  try :
+    ref = db.child("ChargeEase").child("EVStation").child(user_id)
+    station = ref.get().val() 
+    if station['adminstatus']==0 :
+      station['adminstatus'] = 1
+      ref = db.child("ChargeEase").child("EVStation").child(user_id) 
+      ref.update(station)
+      return redirect(url_for('Evdata'))
+    else :
+      #newdata = {'adminstatus':0}
+      station['adminstatus'] = 0
+      ref = db.child("ChargeEase").child("EVStation").child(user_id) 
+      ref.update(station)
+      return redirect(url_for('Evdata'))
+  except Exception as e:
+        print(f"Error: {e}") 
+  return "okay"
 if __name__ == '__main__':
   app.run(debug=True)

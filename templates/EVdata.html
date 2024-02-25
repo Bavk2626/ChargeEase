@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Stations Data Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            height: 100%;
+            justify-content: space-between;
+            padding: 0;
+            margin: 0;
+        }
+
+        .table-container {
+            flex: 1;
+            margin: 5px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+            width: 93px;
+            height: 30px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9; /* Alternate row color */
+        }
+
+        .hover-content {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        h2 ,  h3 {
+            color: #007bff; /* Dark blue color */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+
+
+        tbody tr:hover .hover-content {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>EV Stations Data Form</h2>
+
+    <div class="container">
+        <div class="table-container">
+            <h3 style="color:#7CFC00">Approved Station</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>lat</th>
+                        <th>lng</th>
+                        <th>Rapid</th>
+                        <th>Solar</th>
+                        <th>Battery Exchange</th>
+                        <th>Approval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data if data[i].adminstatus != 0 %}
+                        <tr id="approvedrow{{i}}" onclick="editdata(`{{i}}`)" >
+                            <td>{{ data[i].name }}</td>
+                            <td>{{ data[i].address }}</td>
+                            <td>{{ data[i].latitude }}</td>
+                            <td>{{ data[i].longitude }}</td>
+                            <td>{{ data[i].rapid }}</td>
+                            <td>{{ data[i].solar}}</td>
+                            <td>{{ data[i].batteryexchange}}</td>
+                            <td>
+                                <button onclick="AdminStatus(`{{ i }}`,1)"><i class="fa-solid fa-circle-xmark"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="table-container">
+            <h3 style="color:#FF4433">Not Approved Station</h3>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>lat</th>
+                        <th>lng</th>
+                        <th>Rapid</th>
+                        <th>Solar</th>
+                        <th>Battery Exchange</th>
+                        <th>Approval</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for i in data if data[i].adminstatus == 0 %}
+                        <tr id="approverow{{i}}">
+                            <td>{{ data[i].name }}</td>
+                            <td>{{ data[i].address }}</td>
+                            <td>{{ data[i].latitude }}</td>
+                            <td>{{ data[i].longitude }}</td>
+                            <td>{{ data[i].rapid }}</td>
+                            <td>{{ data[i].solar}}</td>
+                            <td>{{ data[i].batteryexchange}}</td>
+                            <td>
+                                <button onclick="AdminStatus(`{{ i }}`,0)"><i class="fa-solid fa-check"></i></button>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        function editdata(index) {
+            console.log(index);
+        }
+        async function AdminStatus(id,ch)  {
+            if(ch == 0 ){
+            var ids = "approverow"+id
+            var tr = document.getElementById(ids);
+            tr.style.backgroundColor = '#7CFC00';
+            await setTimeout(function() {
+                tr.style.backgroundColor = 'blue'; // Revert color back to blue after 2 seconds
+            }, 2000); // 2000 milliseconds = 2 seconds
+
+            }
+            else 
+            {
+                var ids = "approvedrow"+id
+            var tr = document.getElementById(ids);
+            tr.style.backgroundColor = '#FF4433';
+            setTimeout(function() {
+                tr.style.backgroundColor = 'blue'; // Revert color back to blue after 2 seconds
+            }, 2000); // 2000 milliseconds = 2 seconds
+
+            }   
+            var link = '/update/'+id;
+
+            // Make AJAX request to Flask endpoint
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', link, true);
+            xhr.onload = function() {
+                if (xhr.status == 200) {
+                    console.log('Function performed successfully');
+                    console.log(xhr.responseText);
+                    document.open();
+                    document.write(xhr.responseText);
+                    document.close();
+                } else {
+                    console.error('Error performing function');
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</body>
+</html>
