@@ -17,7 +17,6 @@
         }
 
         .container {
-            display: flex;
             height: 100%;
             justify-content: space-between;
             padding: 0;
@@ -74,13 +73,182 @@
         tbody tr:hover .hover-content {
             display: block;
         }
+
+
+
+
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  display: none;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 0px;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  cursor: pointer;
+  color: white;
+}
+
+.overlay .closebtn:hover {
+  color: #ccc;
+}
+.overlay .delete 
+{
+  width: 10%;
+  position: absolute;
+  top: 53px;
+  right: 100px;
+}
+.overlay label 
+{
+  color: #f1f1f1;
+  padding: 7px;
+  margin: auto;
+
+}
+.overlay input 
+{
+  margin: 5px;
+}
+.overlay button 
+{
+  width: 100%;
+}
+
+.overlay .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.overlay .switch input { 
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.overlay .slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.overlay .slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.overlay input:checked + .slider {
+  background-color: #2196F3;
+}
+
+.overlay input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.overlay input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.overlay .slider.round {
+  border-radius: 34px;
+}
+
+.overlay .slider.round:before {
+  border-radius: 50%;
+}
     </style>
 </head>
 <body>
-
+    <div id="myOverlay" class="overlay ">
+       
+        <button class="delete btn btn-danger">Delete</button>
+        <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+        <div class="overlay-content container">
+          <form action="/edit" class="formlogin" method="post">
+            <h2 style="color: #ffbf00;">Edit  EV Station </h2>
+            <div class="form-group">
+            <label for="name">Name  </label>
+            <input id="editname" class="form-control" type="text" placeholder="name" name="name">
+            </div>
+            <div class="form-group">
+            <label for="address">Address</label> 
+            <input id="editaddress" class="form-control" type="text" placeholder="address" name="address">  
+          </div>
+          <div class="form-group">
+            <label for="lat">Latitude  </label>
+            <input id="editlat" class="form-control" type="text" placeholder="lat" name="lat" value="16.3" disabled> 
+          </div>
+          <div class="form-group">
+            <label for="lng">Longitude  </label>
+            <input id = "editlng" class="form-control" type="text" placeholder="lng" name="lng" disabled> 
+          </div>
+          <div class="form-group">
+            <label>Rapid</label>
+            <label class ="switch" style="margin-left: 233px;"> 
+                  <input id="editrapid" type="checkbox" name="rapid">
+                  <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label>Battery Exchange</label>
+            <label class ="switch" style="margin-left: 150px;">
+              <input id="editbattery" type="checkbox" name="Battery">
+              <span class="slider round"></span>
+            </label>
+          </div>
+          <div class="form-group">
+            <label >Solar</label>
+            <label  class ="switch" style="margin-left: 240px;" >
+              <input id="editsolar" type="checkbox" name="solar">
+              <span class="slider round"></span>
+            </label>
+          </div>
+            <button class="btn btn-outline-warning" type="Change">Update</button>
+          </form>
+        </div>
+      </div>
+      
     <h2>EV Stations Data Form</h2>
 
-    <div class="container">
+    <div class="container" style="display: flex;">
         <div class="table-container">
             <h3 style="color:#7CFC00">Approved Station</h3>
             <table class="table">
@@ -98,14 +266,14 @@
                 </thead>
                 <tbody>
                     {% for i in data if data[i].adminstatus != 0 %}
-                        <tr id="approvedrow{{i}}" onclick="editdata(`{{i}}`)" >
-                            <td>{{ data[i].name }}</td>
-                            <td>{{ data[i].address }}</td>
-                            <td>{{ data[i].latitude }}</td>
-                            <td>{{ data[i].longitude }}</td>
-                            <td>{{ data[i].rapid }}</td>
-                            <td>{{ data[i].solar}}</td>
-                            <td>{{ data[i].batteryexchange}}</td>
+                        <tr id="approvedrow{{i}}" >
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].name }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].address }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].latitude }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].longitude }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].rapid }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].solar}}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].batteryexchange}}</td>
                             <td>
                                 <button onclick="AdminStatus(`{{ i }}`,1)"><i class="fa-solid fa-circle-xmark"></i></button>
                             </td>
@@ -132,14 +300,14 @@
                 </thead>
                 <tbody>
                     {% for i in data if data[i].adminstatus == 0 %}
-                        <tr id="approverow{{i}}">
-                            <td>{{ data[i].name }}</td>
-                            <td>{{ data[i].address }}</td>
-                            <td>{{ data[i].latitude }}</td>
-                            <td>{{ data[i].longitude }}</td>
-                            <td>{{ data[i].rapid }}</td>
-                            <td>{{ data[i].solar}}</td>
-                            <td>{{ data[i].batteryexchange}}</td>
+                        <tr id="approverow{{i}}" >
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].name }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].address }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].latitude }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].longitude }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].rapid }}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].solar}}</td>
+                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].batteryexchange}}</td>
                             <td>
                                 <button onclick="AdminStatus(`{{ i }}`,0)"><i class="fa-solid fa-check"></i></button>
                             </td>
@@ -148,11 +316,13 @@
                 </tbody>
             </table>
         </div>
+
+    </div>
+    <div>
+        
     </div>
     <script>
-        function editdata(index) {
-            console.log(index);
-        }
+       
         async function AdminStatus(id,ch)  {
             if(ch == 0 ){
             var ids = "approverow"+id
@@ -191,6 +361,30 @@
             };
             xhr.send();
         }
+
+        function openSearch(id,name,address,lat,lng,rapid,battery,solar) {
+            var ename = document.getElementById("editname");
+            var eaddress = document.getElementById("editaddress")
+            var elat = document.getElementById("editlat")
+            var elng = document.getElementById("editlng")
+            var erapid = document.getElementById("editrapid")
+            var ebattery = document.getElementById("editbattery")
+            var esolar = document.getElementById("editsolar")
+            ename.value= name;
+            eaddress.value= address;
+            elat.value = lat;
+            elng.value = lng;
+            erapid.value = rapid;
+            ebattery.value = battery;
+            esolar.value = solar;
+           //var  dataFFF = JSON.parse(dataFF)
+            //console.log(dataFF[46643]+dataFF[46644]+dataFF[46645]);
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("myOverlay").style.display = "none";
+}
     </script>
 </body>
 </html>

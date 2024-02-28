@@ -82,6 +82,8 @@ def approval(user_id):
       return redirect(url_for('Evdata'))
   except Exception as e:
         print(f"Error: {e}") 
-  return "okay"
+  return "okay" 
+
+
 if __name__ == '__main__':
   app.run(debug=True)
