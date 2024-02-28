@@ -28,6 +28,45 @@ def choose():
   #db.child("ChargeEase").child("Bike").push({"bikeModel":"","bikeType":"","power":"","range":"","batteryCap":"","chargingTime":""})
   #db.child("ChargeEase").child("Car").push({"carModel":"","carType":"","power":"","range":"","batteryCap":"","chargingTime":""})
   return render_template('index.htm')
+@app.route('/edit',methods=['GET','POST'])
+def edit():
+   if request.method == 'POST':
+    Name = request.form['name']
+    Address= request.form['address']
+    Latitude = request.form['lat']
+    Longitude = request.form['lng']
+    idd = request.form['id']
+    print(request.form)
+    if 'rapid' in request.form:
+      Rapid = 1
+    else:
+      Rapid = 0
+    if 'Battery' in request.form:
+      BatteryExchange = 1
+    else:
+      BatteryExchange = 0
+    if 'solar' in request.form:
+      Solar = 1
+    else:
+      Solar = 0
+    #print (request.form)
+    #print(idd)
+    ref = db.child("ChargeEase").child("EVStation").child(idd)
+    station = ref.get().val()
+    station['name'] = Name
+    station['address'] = Address
+    station['lat'] = Latitude
+    station['lng'] = Longitude
+    station['rapid'] = Rapid
+    station['batteryexchange'] = BatteryExchange
+    station['solar'] = Solar
+    ref = db.child("ChargeEase").child("EVStation").child(idd)
+    ref.update(station)
+    return redirect(url_for('Evdata'))
+@app.route('/delete//<string:user_id>',methods=['GET','POST'])
+def delete():
+
+  return "mama"
 @app.route('/cars',methods=['GET','POST'])
 def cars():
   if request.method == 'POST':

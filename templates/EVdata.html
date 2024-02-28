@@ -199,7 +199,7 @@
 <body>
     <div id="myOverlay" class="overlay ">
        
-        <button class="delete btn btn-danger">Delete</button>
+        <button class="delete btn btn-danger" onclick="deleteStation()">Delete</button>
         <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
         <div class="overlay-content container">
           <form action="/edit" class="formlogin" method="post">
@@ -214,32 +214,35 @@
           </div>
           <div class="form-group">
             <label for="lat">Latitude  </label>
-            <input id="editlat" class="form-control" type="text" placeholder="lat" name="lat" value="16.3" disabled> 
+            <input id="editlat" class="form-control" type="text" placeholder="lat" name="lat" value="16.3"> 
           </div>
           <div class="form-group">
             <label for="lng">Longitude  </label>
-            <input id = "editlng" class="form-control" type="text" placeholder="lng" name="lng" disabled> 
+            <input id = "editlng" class="form-control" type="text" placeholder="lng" name="lng"> 
           </div>
           <div class="form-group">
             <label>Rapid</label>
             <label class ="switch" style="margin-left: 233px;"> 
-                  <input id="editrapid" type="checkbox" name="rapid">
+                  <input id="editrapid" type="checkBox" name="rapid">
                   <span class="slider round"></span>
             </label>
           </div>
           <div class="form-group">
             <label>Battery Exchange</label>
             <label class ="switch" style="margin-left: 150px;">
-              <input id="editbattery" type="checkbox" name="Battery">
+              <input id="editbattery" type="checkBox" name="Battery">
               <span class="slider round"></span>
             </label>
           </div>
           <div class="form-group">
             <label >Solar</label>
             <label  class ="switch" style="margin-left: 240px;" >
-              <input id="editsolar" type="checkbox" name="solar">
+              <input id="editsolar" type="checkBox" name="solar">
               <span class="slider round"></span>
             </label>
+          </div>
+          <div class="hidden">
+            <input id="evid" name="id" type="hidden">
           </div>
             <button class="btn btn-outline-warning" type="Change">Update</button>
           </form>
@@ -322,7 +325,7 @@
         
     </div>
     <script>
-       
+       var stationid ;
         async function AdminStatus(id,ch)  {
             if(ch == 0 ){
             var ids = "approverow"+id
@@ -370,6 +373,7 @@
             var erapid = document.getElementById("editrapid")
             var ebattery = document.getElementById("editbattery")
             var esolar = document.getElementById("editsolar")
+            var evid = document.getElementById("evid")
             ename.value= name;
             eaddress.value= address;
             elat.value = lat;
@@ -377,6 +381,8 @@
             erapid.value = rapid;
             ebattery.value = battery;
             esolar.value = solar;
+            evid.value = id;
+            stationid = id ;
            //var  dataFFF = JSON.parse(dataFF)
             //console.log(dataFF[46643]+dataFF[46644]+dataFF[46645]);
   document.getElementById("myOverlay").style.display = "block";
@@ -385,6 +391,27 @@
 function closeSearch() {
   document.getElementById("myOverlay").style.display = "none";
 }
+function deleteStation() 
+{
+  var link = '/update/'+stationid;
+  console.log(stationid)
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', link, true);
+
+ /* xhr.onload = function() {
+      if (xhr.status == 200) {
+          console.log('Function performed successfully');
+          console.log(xhr.responseText);
+          document.open();
+          document.write(xhr.responseText);
+          document.close();
+      } else {
+          console.error('Error performing function');
+      }
+  };
+  xhr.send();*/
+}
+
     </script>
 </body>
 </html>
