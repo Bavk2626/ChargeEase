@@ -1,144 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Information Form</title>
+{% extends "layout.html" %}
+{% block body %}
+    <div class="vechileContainer">
+    <h2 class="vechileHeading">Car Information Form</h2>
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <form class="vechileForm" action="/cars" method="post">
+        <label class="vechileLabel" for="carModel">Car Model:</label>
+        <input class="vechileInput" type="text" id="carModel" name="carModel" class="form-control" required>
 
-    <style>
-        body {
-            padding: 20px;
-            background: #f5f5f5; /* Light gray background */
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: start;
-            margin: 0;
-        }
+        <label class="vechileLabel"  for="carType">Car Type:</label>
+        <input class="vechileInput" type="text" id="carType" name="carType" class="form-control" required>
 
-        h2 {
-            color: #007bff; /* Dark blue color */
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        <label class="vechileLabel"  for="power">Power:</label>
+        <input class="vechileInput" type="text" id="power" name="power" class="form-control" required>
 
-        form {
-            max-width: 800px;
-            background-color: #ffffff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-        }
+        <label class="vechileLabel" for="range">Range:</label>
+        <input class="vechileInput" type="number" id="range" name="range" class="form-control" required>
 
-        label {
-            color: #495057;
-            display: block;
-            margin-bottom: 5px;
-            flex: 1;
-            margin-right: 10px;
-        }
+        <label class="vechileLabel" for="batteryCap">Battery Capacity</label>
+        <input class="vechileInput" type="text" id="batteryCap" name="batteryCap" class="form-control" required>
 
-        input {
-            flex: 2;
-            margin-bottom: 15px;
-            padding: 10px;
-            border: 1px solid #ced4da; /* Light gray border */
-            border-radius: 6px;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
+        <label class="vechileLabel" for="chargingTime">Charging Time</label>
+        <input class="vechileInput" type="text" id="chargingTime" name="chargingTime" class="form-control" required>
 
-        input[type="submit"] {
-            flex: 2;
-            background-color: #007bff; /* Dark blue color */
-            color: #fff;
-            cursor: pointer;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #0056b3; /* Slightly darker blue on hover */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9; /* Alternate row color */
-        }
-    </style>
-</head>
-<body>
-
-    <h2>Car Information Form</h2>
-
-    <form action="/cars" method="post">
-        <label for="carModel">Car Model:</label>
-        <input type="text" id="carModel" name="carModel" class="form-control" required>
-
-        <label for="carType">Car Type:</label>
-        <input type="text" id="carType" name="carType" class="form-control" required>
-
-        <label for="power">Power:</label>
-        <input type="text" id="power" name="power" class="form-control" required>
-
-        <label for="range">Range:</label>
-        <input type="number" id="range" name="range" class="form-control" required>
-
-        <label for="batteryCap">Battery Capacity</label>
-        <input type="text" id="batteryCap" name="batteryCap" class="form-control" required>
-
-        <label for="chargingTime">Charging Time</label>
-        <input type="text" id="chargingTime" name="chargingTime" class="form-control" required>
-
-        <input type="submit" value="Submit" class="btn btn-primary">
+        <input class="vechileInput" type="submit" value="Submit" class="btn btn-primary">
     </form>
 
-    <table class="table">
+    <table class="vechileTable">
         <thead>
-            <tr>
-                <th>Car Model</th>
-                <th>Car Type</th>
-                <th>Power</th>
-                <th>Range</th>
-                <th>Battery Capacity</th>
-                <th>Charging Time</th>
+            <tr class="vechiletablerow">
+                <th class="vechiletableheading" >Car Model</th>
+                <th class="vechiletableheading">Car Type</th>
+                <th class="vechiletableheading">Power</th>
+                <th class="vechiletableheading">Range</th>
+                <th class="vechiletableheading">Battery Capacity</th>
+                <th class="vechiletableheading">Charging Time</th>
             </tr>
         </thead>
         <tbody>
             {% for i in data %}
-                <tr>
-                    <td>{{ data[i].carModel }}</td>
-                    <td>{{ data[i].carType }}</td>
-                    <td>{{ data[i].power }}</td>
-                    <td>{{ data[i].range }}</td>
-                    <td>{{ data[i].batteryCap }}</td>
-                    <td>{{ data[i].chargingTime }}</td>
-                </tr>
+                <tr class="vechiletablerow">
+                    <td class="vechiletabledetails">{{ data[i].carModel }}</td>
+                    <td class="vechiletabledetails">{{ data[i].carType }}</td>
+                    <td class="vechiletabledetails">{{ data[i].power }}</td>
+                    <td class="vechiletabledetails">{{ data[i].range }}</td>
+                    <td class="vechiletabledetails">{{ data[i].batteryCap }}</td>
+                    <td class="vechiletabledetails">{{ data[i].chargingTime }}</td>
+                </tr >
             {% endfor %}
         </tbody>
     </table>
-</body>
-</html>
+</div>
+{% endblock body%} 

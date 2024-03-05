@@ -1,0 +1,89 @@
+#map 
+{
+    height: 100vh;
+}
+.body 
+{
+    overflow: hidden;
+}
+.cards 
+{
+    overflow-x: hidden;
+}
+.deatilsev
+{
+    background-color: rgb(215, 219, 224);
+    padding: 10px;
+    margin: 5px;
+    border-radius: 8px;
+    width: auto;
+}
+
+.button 
+{
+    width: 100px;
+    margin: 5px;
+    border-radius: 5px ;
+    border-style:none;
+    color :rgb(38, 209, 41)
+}
+
+.box
+{
+    border-radius: 8px;
+    padding: 10px;
+    height: auto;
+    display: inline-block;
+    margin: 5px;
+   
+}
+.heading
+{
+    text-align: left;
+    padding:10px;
+    font-size: medium;
+}
+.address
+{
+    border: 3px;
+    background-color: aliceblue;
+    border-radius: 10px;
+    margin: 2px;
+    border-style: groove;
+    height: 130px;
+    width:250px;
+    overflow: auto;
+    
+}
+.scrolling-wrapper {
+    overflow-x: scroll;
+   
+  }
+  .stationbtn
+  {
+    width: 75px;
+    align-items: start;
+    height: 75px;
+    position: absolute !important ;
+    left: 20px;
+    top: 270px !important;;
+  }
+  .gray-box {
+    
+    background: lightgray;
+    height: 60px;  
+    width: 70%;
+    
+  }
+  .containermap
+  {
+    width: 100%;
+    position: relative;
+  }
+  #stationimg 
+  {
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    object-fit: cover;
+  }

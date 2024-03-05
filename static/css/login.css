@@ -1,0 +1,53 @@
+.logincon {
+    max-width: 400px;
+    margin: 0 auto;
+    margin-top: 100px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.h2login {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #040404;
+}
+
+.formlogin {
+    margin-top: 20px;
+}
+
+.labellogin {
+    font-weight: bold;
+}
+
+.btnlogin {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.mt-3 {
+    margin-top: 20px;
+}
+
+.mt-3 .alogin {
+    color: #171817;
+}
+
+.mt-3 .alogin:hover {
+    text-decoration: none;
+}
+
+.plogin {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.alogin {
+    color: #121312;
+}
+
+.alogin:hover {
+    text-decoration: none;
+}

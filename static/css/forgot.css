@@ -1,0 +1,53 @@
+.forgotcon {
+            max-width: 400px;
+            margin: 0 auto;
+            margin-top: 100px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .h2forgot {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #040404;
+        }
+
+        .formforgot {
+            margin-top: 20px;
+        }
+
+        .labelforgot {
+            font-weight: bold;
+        }
+
+        .btnforgot {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .mt-3 {
+            margin-top: 20px;
+        }
+
+        .mt-3 .aforgot {
+            color: #171817;
+        }
+
+        .mt-3 .aforgot:hover {
+            text-decoration: none;
+        }
+
+        .pforgot {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .aforgot {
+            color: #121312;
+        }
+
+        .aforgot:hover {
+            text-decoration: none;
+        }

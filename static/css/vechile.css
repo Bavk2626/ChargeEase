@@ -1,0 +1,80 @@
+.vechileContainer {
+    padding: 20px;
+    background: #f5f5f5; /* Light gray background */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    margin: 0;
+}
+
+.vechileHeading {
+    color: #484949; /* Dark blue color */
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.vechileForm {
+    width: 100%;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.vechileLabel {
+    color: #495057;
+    display: block;
+    margin-bottom: 5px;
+    flex: 1;
+    margin: 10px;
+    width: 10px;
+}
+
+.vechileInput {
+    flex: 2;
+    width: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 6px;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.vechileInput[type="submit"] {
+    flex: 2;
+    background-color: #373838; /* Dark blue color */
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.vechileInput[type="submit"]:hover {
+    background-color: #040404; /* Slightly darker blue on hover */
+}
+
+.vechileTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.vechiletableheading, .vechiletabledetails {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.vechiletableheading {
+    background-color: #3d3939;
+    color: white;
+}
+
+tbody .vechiletablerow:nth-child(even) {
+    background-color: #f9f9f9; /* Alternate row color */
+}

@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="container logincon" style="width: 30%; margin-top: 100px; height: 50%;">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category , message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <h2 class="h2login">Login</h2>
+        <form class="formlogin" action="/result" method="post">
+            <div class="form-group">
+                <label class="labellogin" for="email">Admin Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label class="labellogin" for="password">Admin Password:</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <button type="submit" class="btn btn-dark btnlogin">Login</button>
+        </form>
+    </div>
+{% endblock body%}

@@ -1,202 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EV Stations Data Form</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            height: 100%;
-            justify-content: space-between;
-            padding: 0;
-            margin: 0;
-        }
-
-        .table-container {
-            flex: 1;
-            margin: 5px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-            width: 93px;
-            height: 30px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        th {
-            background-color: #007bff;
-            color: white;
-        }
-
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9; /* Alternate row color */
-        }
-
-        .hover-content {
-            display: none;
-            position: absolute;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            padding: 10px;
-        }
-
-        h2 ,  h3 {
-            color: #007bff; /* Dark blue color */
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-
-
-        tbody tr:hover .hover-content {
-            display: block;
-        }
-
-
-
-
-
-.overlay {
-  height: 100%;
-  width: 100%;
-  display: none;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0, 0.9);
-}
-
-.overlay-content {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-  margin: 0 auto;
-  margin-top: 0px;
-  padding: 20px;
-  border-radius: 5px;
-}
-
-.overlay .closebtn {
-  position: absolute;
-  top: 20px;
-  right: 45px;
-  font-size: 60px;
-  cursor: pointer;
-  color: white;
-}
-
-.overlay .closebtn:hover {
-  color: #ccc;
-}
-.overlay .delete 
-{
-  width: 10%;
-  position: absolute;
-  top: 53px;
-  right: 100px;
-}
-.overlay label 
-{
-  color: #f1f1f1;
-  padding: 7px;
-  margin: auto;
-
-}
-.overlay input 
-{
-  margin: 5px;
-}
-.overlay button 
-{
-  width: 100%;
-}
-
-.overlay .switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-}
-
-.overlay .switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.overlay .slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.overlay .slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.overlay input:checked + .slider {
-  background-color: #2196F3;
-}
-
-.overlay input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-.overlay input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.overlay .slider.round {
-  border-radius: 34px;
-}
-
-.overlay .slider.round:before {
-  border-radius: 50%;
-}
-    </style>
-</head>
-<body>
+{% extends "layout.html" %}
+{% block body %}
     <div id="myOverlay" class="overlay ">
        
         <button class="delete btn btn-danger" onclick="deleteStation()">Delete</button>
@@ -219,6 +22,10 @@
           <div class="form-group">
             <label for="lng">Longitude  </label>
             <input id = "editlng" class="form-control" type="text" placeholder="lng" name="lng"> 
+          </div>
+          <div class="form-group">
+            <label for="avl">Availability  </label>
+            <input id = "editavl" class="form-control" type="text" placeholder="availability" name="avl"> 
           </div>
           <div class="form-group">
             <label>Rapid</label>
@@ -249,35 +56,37 @@
         </div>
       </div>
       
-    <h2>EV Stations Data Form</h2>
+    <h2 style="color: #3c3d3d;" class="center">EV Stations Data Form</h2>
 
-    <div class="container" style="display: flex;">
+    <div class="container" style="display: flex; margin: 1px;">
         <div class="table-container">
-            <h3 style="color:#7CFC00">Approved Station</h3>
-            <table class="table">
+            <h3 style="color:#1e3c00" class="center">Approved Station</h3>
+            <table class="evdatatable">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>lat</th>
-                        <th>lng</th>
-                        <th>Rapid</th>
-                        <th>Solar</th>
-                        <th>Battery Exchange</th>
-                        <th>Approval</th>
+                    <tr class="evtablerow">
+                        <th class="evtablehead">Name</th>
+                        <th class="evtablehead">Address</th>
+                        <th class="evtablehead">lat</th>
+                        <th class="evtablehead">lng</th>
+                        <th class="evtablehead">Rapid</th>
+                        <th class="evtablehead">Solar</th>
+                        <th class="evtablehead">Battery Exchange</th>
+                        <th class="evtablehead">Availability</th>
+                        <th class="evtablehead">Approval</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in data if data[i].adminstatus != 0 %}
-                        <tr id="approvedrow{{i}}" >
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].name }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].address }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].latitude }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].longitude }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].rapid }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].solar}}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].batteryexchange}}</td>
-                            <td>
+                        <tr class="evtablerow" id="approvedrow{{i}}" >
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].name }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].address }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].latitude }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].longitude }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].rapid }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].solar}}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].batteryexchange}}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].availability}}</td>
+                            <td class="evtabledetails">
                                 <button onclick="AdminStatus(`{{ i }}`,1)"><i class="fa-solid fa-circle-xmark"></i></button>
                             </td>
                         </tr>
@@ -287,30 +96,32 @@
         </div>
 
         <div class="table-container">
-            <h3 style="color:#FF4433">Not Approved Station</h3>
-            <table class="table">
+            <h3 style="color:#6e0900" class="center">Not Approved Station</h3>
+            <table class="evdatatable">
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>lat</th>
-                        <th>lng</th>
-                        <th>Rapid</th>
-                        <th>Solar</th>
-                        <th>Battery Exchange</th>
-                        <th>Approval</th>
+                    <tr class="evtablerow" >
+                        <th class="evtablehead">Name</th>
+                        <th class="evtablehead">Address</th>
+                        <th class="evtablehead">lat</th>
+                        <th class="evtablehead">lng</th>
+                        <th class="evtablehead">Rapid</th>
+                        <th class="evtablehead">Solar</th>
+                        <th class="evtablehead">Battery Exchange</th>
+                        <th class="evtablehead">Avaliability</th>
+                        <th class="evtablehead">Approval</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for i in data if data[i].adminstatus == 0 %}
-                        <tr id="approverow{{i}}" >
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].name }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].address }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].latitude }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].longitude }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].rapid }}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].solar}}</td>
-                            <td onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}` )" >{{ data[i].batteryexchange}}</td>
+                        <tr class="evtablerow" id="approverow{{i}}" >
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].name }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].address }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].latitude }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].longitude }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].rapid }}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].solar}}</td>
+                            <td  class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].batteryexchange}}</td>
+                            <td class="evtabledetails" onclick="openSearch(`{{i}}`,`{{data[i].name}}` ,`{{data[i].address}}`,`{{data[i].latitude}}`,`{{data[i].longitude}}`,`{{data[i].rapid}}`,`{{data[i].batteryexchange}}`,`{{data[i].solar}}`,`{{data[i].availability}}` )" >{{ data[i].availability}}</td>
                             <td>
                                 <button onclick="AdminStatus(`{{ i }}`,0)"><i class="fa-solid fa-check"></i></button>
                             </td>
@@ -325,7 +136,7 @@
         
     </div>
     <script>
-       var stationid ;
+       var stationid ,stationname;
         async function AdminStatus(id,ch)  {
             if(ch == 0 ){
             var ids = "approverow"+id
@@ -365,7 +176,7 @@
             xhr.send();
         }
 
-        function openSearch(id,name,address,lat,lng,rapid,battery,solar) {
+        function openSearch(id,name,address,lat,lng,rapid,battery,solar,avl) {
             var ename = document.getElementById("editname");
             var eaddress = document.getElementById("editaddress")
             var elat = document.getElementById("editlat")
@@ -374,6 +185,7 @@
             var ebattery = document.getElementById("editbattery")
             var esolar = document.getElementById("editsolar")
             var evid = document.getElementById("evid")
+            var eavl = document.getElementById("editavl")
             ename.value= name;
             eaddress.value= address;
             elat.value = lat;
@@ -382,7 +194,10 @@
             ebattery.value = battery;
             esolar.value = solar;
             evid.value = id;
+            eavl.value = avl ;
             stationid = id ;
+
+            stationname = name;
            //var  dataFFF = JSON.parse(dataFF)
             //console.log(dataFF[46643]+dataFF[46644]+dataFF[46645]);
   document.getElementById("myOverlay").style.display = "block";
@@ -393,25 +208,29 @@ function closeSearch() {
 }
 function deleteStation() 
 {
-  var link = '/update/'+stationid;
+  var link = '/delete/'+stationid+'/'+stationname;
   console.log(stationid)
   var xhr = new XMLHttpRequest();
   xhr.open('GET', link, true);
 
- /* xhr.onload = function() {
+  xhr.onload = function() {
       if (xhr.status == 200) {
           console.log('Function performed successfully');
           console.log(xhr.responseText);
-          document.open();
+          alert(xhr.responseText);
+          //
+          /*document.open();
           document.write(xhr.responseText);
-          document.close();
+          document.close();*/
       } else {
           console.error('Error performing function');
       }
   };
-  xhr.send();*/
+  xhr.send();
+  closeSearch()
+  window.location.assign('/EVdata');
 }
 
     </script>
-</body>
-</html>
+
+{% endblock body%} 

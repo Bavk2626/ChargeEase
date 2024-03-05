@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/nav.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/main.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/home.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/login.css')}}">
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/register.css')}}"> -->
+    <!-- <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.login.css')}}">  -->
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/forgot.css')}}"> 
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/vechile.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/evdata.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{url_for('static',filename='bootstrap/css/bootstrap.min.css')}}"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+	<script src="bootstrap/js/bootstrap.bundle.js"></script>
+    <title>ChargeEase Admin</title>
+</head>
+<body style="height: 100vh; overflow: auto;">
+    <nav class="navbar">
+		<div class="logo">
+			<a href="/"><img src="{{url_for('static', filename='logo/logo4.png')}}" alt="Logo"></a>
+            
+		</div>
+		<ul class="nav-links">
+            <h4 style="color: antiquewhite;">Admin</h4>
+			<li><a href="/cars">Cars</a></li>
+			<li><a href="/bike">Bikes</a></li>
+			<li><a href="/EVdata">EV Satations</a></li>
+            {% if person.present == False   %}
+			<li><a href="/login">Login </a></li>
+            {% else %}
+            <li ><a href="/logout">Log out </a></li>
+            {% endif %}
+		</ul>
+	</nav>
+    {% block  body %}
+    {% endblock body%}  
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>  
+</body>
+</html>
