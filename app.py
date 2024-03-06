@@ -22,14 +22,10 @@ person = {"present": False}
 
 app = Flask(__name__) 
 app.secret_key = '_5#y2L"F4Q8z\n\xec]/'
-#name = "akhil"
-#print(name)
-#db.child("ChargeEase").child("EVUser").push({"name":name,"age":21,"email":"bandianand900@gmail.com","status":0,"Vechile":"C-name-type","mobile":"6302174710","address":"plot 126"})
+
 
 @app.route('/',methods=['GET'])
 def home():
-  #db.child("ChargeEase").child("Bike").push({"bikeModel":"","bikeType":"","power":"","range":"","batteryCap":"","chargingTime":""})
-  #db.child("ChargeEase").child("Car").push({"carModel":"","carType":"","power":"","range":"","batteryCap":"","chargingTime":""})
   return render_template('home.html',person=person)
 @app.route('/login',methods=['POST','GET'])
 def login():
@@ -38,20 +34,17 @@ def login():
 @app.route("/result",methods=["POST","GET"])
 def result():
   if request.method ==  'POST':
-    #print(request.form)
     email = request.form['email']
     password = request.form['password']
+    f = 0
     try :
       user = auth.sign_in_with_email_and_password(email,password)
-      #verify = auth.get_account_info(user['idToken'])['users'][0]['emailVerified']
-      
-      f = 0
+
       if not ("xPK2YsHozMN9vkBp4lcax83jlAr2" == user['localId']):
         f = 1
         raise Exception("Only admin can login")
       person["id"] = user['localId']
       person['present'] = True
-      #print(person)
     except Exception as e:
       #s = e.args[1]
       if f == 1 :
@@ -71,7 +64,6 @@ def edit():
     Longitude = request.form['lng']
     idd = request.form['id']
     avl = request.form['avl']
-    print(request.form)
     if 'rapid' in request.form:
       Rapid = 1
     else:
@@ -84,8 +76,7 @@ def edit():
       Solar = 1
     else:
       Solar = 0
-    #print (request.form)
-    #print(idd)
+
     ref = db.child("ChargeEase").child("EVStation").child(idd)
     station = ref.get().val()
     station['name'] = Name
@@ -148,7 +139,6 @@ def Evdata():
   if not person['present']:
     return redirect(url_for('login'))
   try :
-    #db.child("ChargeEase").child("Bik").push({"bikeModel":carModel,"bikeType":carType,"power":power,"range":range1,"batteryCap":batteryCap,"chargingTime":chargingTime})
     data = db.child("ChargeEase").child("EVStation").get()
     l = data.val()
     return render_template('EVdata.html',data=l,person=person)
@@ -167,14 +157,12 @@ def approval(user_id):
       ref.update(station)
       return redirect(url_for('Evdata'))
     else :
-      #newdata = {'adminstatus':0}
       station['adminstatus'] = 0
       ref = db.child("ChargeEase").child("EVStation").child(user_id) 
       ref.update(station)
       return redirect(url_for('Evdata'))
   except Exception as e:
-        print(f"Error: {e}") 
-  return "okay" 
+    return "contact Number : 6031274710 pls contact" 
 
 
 
@@ -182,11 +170,10 @@ def approval(user_id):
 @app.route("/logout")
 def logout():
   global person 
-  #print("logout :", person)
   person = {"present": False}
   return redirect(url_for("home"))
 
 
 
 if __name__ == '__main__':
-  app.run(debug=True)
+  app.run(debug=False,host='0.0.0.0')
